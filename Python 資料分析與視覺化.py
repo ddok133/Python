@@ -3,10 +3,7 @@
 # =============================================================================
 
 
-
-
-'''
-* 網頁資料擷取與分析
+*** 網頁資料擷取與分析 ***
     ＠主題
         1. 資料處理
         2. 網頁資料擷取(必須會網頁結構或網頁設計 HTML5 , CSS3)與轉換
@@ -32,9 +29,10 @@
             2. 將內容切割為一個個字詞
             3. 以 tf-idf 分析每個字詞的重要性
                 tf:term freguency 字詞頻率(某字詞的出現次數/所有字詞出現次數的總和：字詞在文章中的重要性)
+                
                 idf:inverse document frequency 逆向檔案頻率(總文章數/某詞出現的文章數：越常出現的字詞越不重要)
-            安裝 Python 函式庫：以命令列 Anacouda Prompt 輸入指令 -> pip install jieba    
-'''
+        *安裝 Python 函式庫：以命令列 Anacouda Prompt 輸入指令 -> pip install jieba    
+
 # Exercise==================================================================
 
 # 讀取文章，找出最重要的字詞
@@ -42,42 +40,54 @@
 
 # =============================================================================
 
+1. 
 import jieba
 import jieba.analyse
-f = open(r'/Users/martychen/Desktop/Python/article.txt' , 'r' , encoding = 'utf-8')
+f = open(r'/Users/martychen/Documents/Python/article.txt' , 'r' , encoding = 'utf-8')
 article = f.read()
-tags = jieba.analyse.extract_tags(article , 10) # 抓取 10 個最重要的字詞
+tags = jieba.analyse.extract_tags(article,5) # 抓取 10 個最重要的字詞
 print('最重要字詞：', tags)
 
 
 
-'''
-* open data:開放資料
+
+
+
+
+
+
+＊＊＊ open data:開放資料 ＊＊＊
     ＠建議格式：JSON , XML , 試算表 (MS Excel) , CSV(以透號分隔的) , 文書(PDF , Word , ODF) , 純文字(*.txt)
 
-    ＠HTML 轉 PDF : 
-        pdfkit
-            1. 安裝函式庫 pdfkit
-            2. 安裝 wkhtmltopdf
-                -> pdfkit.from_url(網址 , 轉存的pdf檔 , 組態（執行的wkhtmltopdf程式）) ＃將網頁轉存PDF檔
-                -> pdfkit.from_string(字串 , 轉存的pdf檔 , 組態) ＃將字串轉存PDF檔
-                -> pdfkit.from_file(檔案 , 轉存的pdf檔 , 組態) ＃將檔案轉存PDF檔
+
+
+＊ HTML 轉 PDF
+    pdfkit
+        1. 安裝函式庫 pdfkit
+        2. 安裝 wkhtmltopdf
+            -> pdfkit.from_url(網址 , 轉存的pdf檔 , 組態（執行的wkhtmltopdf程式）) ＃將網頁轉存PDF檔
+            -> pdfkit.from_string(字串 , 轉存的pdf檔 , 組態) ＃將字串轉存PDF檔
+            -> pdfkit.from_file(檔案 , 轉存的pdf檔 , 組態) ＃將檔案轉存PDF檔
     
 
-'''
+
 
 # Exercise================================================================
 import pdfkit
 config = pdfkit.configuration(wkhtmltopdf=r'/usr/local/bin/wkhtmltopdf')
 
-pdfkit.from_file('/Users/martychen/Desktop/Python/test.html', r'/Users/martychen/Desktop/Python/out4.pdf' , configuration=config)
-pdfkit.from_url('https://www.csf.org.tw/main/index.asp', r'/Users/martychen/Desktop/Python/out1.pdf' , configuration=config)
-pdfkit.from_string('Hello World!', r'/Users/martychen/Desktop/Python/out2.pdf' ,configuration=config)
-pdfkit.from_file('/Users/martychen/Desktop/Python/CSF.html',r'/Users/martychen/Desktop/Python/out3.pdf' , configuration=config)
+pdfkit.from_file('/Users/martychen/Documents/Python/test.html', r'/Users/martychen/Documents/Python/out4.pdf' , configuration=config)
+pdfkit.from_url('https://tw.yahoo.com/', r'/Users/martychen/Documents/Python/out1.pdf' , configuration=config)
+pdfkit.from_string('Hello World!', r'/Users/martychen/Documents/Python/out2.pdf' ,configuration=config)
+pdfkit.from_file('/Users/martychen/Documents/Python/CSF.html',r'/Users/martychen/Documents/Python/out3.pdf' , configuration=config)
 
 
-'''
-HTML 語法架構
+
+
+
+
+
+*** HTML 語法架構 ***
 <html>
 
 <head>    </head>
@@ -111,55 +121,56 @@ HTML 語法架構
 </bopdy>
 </html>
 
-'''
 
 
 
-'''
-     ＠HTML 轉 PDF : 
-         pypdf2:
-             1. 安裝函式庫 pypdf2
-             2. 執行pdf寫入,讀取,合併,分割....
+
+
+
+＊ HTML 轉 PDF
+    pypdf2:
+        1. 安裝函式庫 pypdf2
+        2. 執行pdf寫入,讀取,合併,分割....
              
-             -> PdfFileReader(PDF檔案)：讀取PDF檔案
-             -> PDF物件.getDocumentInfo():取得頁面資訊
-             -> PDF物件.getPageLayout():取得頁面配置
-             -> PDF物件.getPageMode():取得頁面模式
-             -> PDF物件.getXmpMeTadate():取得檢索資料
-             -> PDF物件.getNumPages():取得頁數          
-             -> PdfFileWriter(物件).addPage(寫入的頁面)# PageObj : 加入每一頁
-             -> PdfFileReader(物件).getPage(頁面索引)＃ 取得頁面(每一頁)PageObj
-             -> PdfFileWriter(物件).write(寫入的檔案) # 將加入的每一頁寫到檔案
-             -> PdfFileWriter(物件).addBlankPage() # 加入空白頁
+        -> PdfFileReader(PDF檔案)：讀取PDF檔案
+        -> PDF物件.getDocumentInfo():取得頁面資訊
+        -> PDF物件.getPageLayout():取得頁面配置
+        -> PDF物件.getPageMode():取得頁面模式
+        -> PDF物件.getXmpMeTadate():取得檢索資料
+        -> PDF物件.getNumPages():取得頁數          
+        -> PdfFileWriter(物件).addPage(寫入的頁面)# PageObj : 加入每一頁
+        -> PdfFileReader(物件).getPage(頁面索引)＃ 取得頁面(每一頁)PageObj
+        -> PdfFileWriter(物件).write(寫入的檔案) # 將加入的每一頁寫到檔案
+        -> PdfFileWriter(物件).addBlankPage() # 加入空白頁
 
-'''
+
 
 # Exercise================================================================
 
 1. 取得PDF 檔案資訊
 
-from PyPDF2 import PdfFileReader , PdfFileWriter
-readfile = r'/Users/martychen/Desktop/Python/water.pdf'
+from PyPDF2 import PdfFileReader , PdfFileWriter #import PyPDF2
+pdffile = r'/Users/martychen/Documents/Python/water.pdf'
 
-pdfFileReader = PdfFileReader(readfile)
+pfr = PdfFileReader(pdffile)
 
-documentInfo = pdfFileReader.getDocumentInfo()
+documentInfo = pfr.getDocumentInfo()
 
 print('documentInfo = %s' % documentInfo)
 
-pageLayout = pdfFileReader.getPageLayout()
+pageLayout = pfr.getPageLayout()
 
 print('pagelayout = %s' % pageLayout)
 
-pagemode = pdfFileReader.getPageMode()
+pagemode = pfr.getPageMode()
 
 print('pagemode = %s' % pagemode)
 
-xmpmetadata = pdfFileReader.getXmpMetadata()
+xmpmetadata = pfr.getXmpMetadata()
 
 print('xmpmetadata = %s' % xmpmetadata)
 
-pagecount = pdfFileReader.getNumPages()
+pagecount = pfr.getNumPages()
 
 print('pagecount = %s' % pagecount)
 
@@ -168,26 +179,26 @@ print('pagecount = %s' % pagecount)
 
 2. 增加PDF檔案頁面
 
-from PyPDF2 import PdfFileReader , PdfFileWriter
-readfile = r'/Users/martychen/Desktop/Python/health.pdf'
-#設定檔案來源為 readFile 變數
-PFR = PdfFileReader(readfile,strict=False)
-#讀取檔案並設定給 PFR 變數
-documentInfo = PFR.getDocumentInfo()
+from PyPDF2 import PdfFileReader , PdfFileWriter #import PyPDF2
+pdffile = r'/Users/martychen/Documents/Python/health.pdf'
+#設定檔案來源為 pdffile 變數
+pfr = PdfFileReader(pdffile,strict=False)
+#讀取檔案並設定給 pfr 變數
+documentInfo = pfr.getDocumentInfo()
 #取得檔案資訊並設定給 documentInfo 變數
-outfile = r'/Users/martychen/Desktop/Python/health_output.pdf'
-#設定輸出檔案名稱為 outFile 變數
-PFW = PdfFileWriter()
-#將檔案寫入方法設定給 PFW 變數
-numPages = PFR.getNumPages()
+outfile = r'/Users/martychen/Documents/Python/health_output.pdf'
+#設定輸出檔案名稱為 outfile 變數
+pfw = PdfFileWriter()
+#將檔案寫入方法設定給 pfw 變數
+numPages = pfr.getNumPages()
 for index in range(0,numPages):
-    pageObj = PFR.getPage(index)
+    pageObj = pfr.getPage(index)
     
-    PFW.addPage(pageObj)
-    PFW.write(open(outfile , 'wb'))
+    pfw.addPage(pageObj)
+    pfw.write(open(outfile , 'wb'))
 
-PFW.addBlankPage()
-PFW.write(open(outfile , 'wb'))
+pfw.addBlankPage()
+pfw.write(open(outfile , 'wb'))
 
 
 
@@ -201,26 +212,31 @@ PFW.write(open(outfile , 'wb'))
 
 
 3. 分割PDF檔案
-from PyPDF2 import PdfFileReader , PdfFileWriter
-readFile = r'/Users/martychen/Desktop/Python/health.pdf'
-#設定檔案來源為 readFile 變數
-pdfFileReader = PdfFileReader(readFile,strict=False)
-#讀取檔案並設定給 pdfFileReader 變數
-documentInfo = pdfFileReader.getDocumentInfo()
+
+from PyPDF2 import PdfFileReader , PdfFileWriter #import PyPDF2
+pdfFile = r'/Users/martychen/Documents/Python/health.pdf'
+#設定檔案來源為 pdfFile 變數
+pfr = PdfFileReader(pdfFile,strict=False)
+#讀取檔案並設定給 pfr 變數
+documentInfo = pfr.getDocumentInfo()
 #取得檔案資訊並設定給 documentInfo 變數
-outFile = r'/Users/martychen/Desktop/Python/health_cut.pdf'
+outFile = r'/Users/martychen/Documents/Python/health_cut.pdf'
 #設定輸出檔案名稱為 outFile 變數
-pdfFileWriter = PdfFileWriter()
-#將檔案寫入方法設定給 pdfFileWriter 變數
-numPages = pdfFileReader.getNumPages()
+pfw = PdfFileWriter()
+#將檔案寫入方法設定給 pfw 變數
+numPages = pfr.getNumPages()
 #讀取檔案頁數並設定給 numPages 變數
 if numPages > 3: #若是頁數大於 3 
     
     for index in range(3, numPages): #則將頁數帶入迴圈，從3開始到最後的頁數
-        pageObj = pdfFileReader.getPage(index) #以迴圈每一圈的index值取得該頁並設定給pageObj變數
-        pdfFileWriter.addPage(pageObj) #將取得的頁面加入
+        pageObj = pfr.getPage(index) #以迴圈每一圈的index值取得該頁並設定給pageObj變數
+        pfw.addPage(pageObj) #將取得的頁面加入
         
-    pdfFileWriter.write(open(outFile, 'wb')) #將所有加入的頁面寫入輸出檔案
+    pfw.write(open(outFile, 'wb')) #將所有加入的頁面寫入輸出檔案
+    
+    
+    
+
     
     
 
@@ -231,12 +247,12 @@ if numPages > 3: #若是頁數大於 3
 4. 合併 PDF 檔案
 
 import PyPDF2
-pdfFiles = [r'/Users/martychen/Desktop/Python/out1.pdf', 
-            r'/Users/martychen/Desktop/Python/out2.pdf' ,
-            r'/Users/martychen/Desktop/Python/out3.pdf'] 
-#設定檔案來源為 readFile 變數 #設定要讀取的檔案
-pdfWriter = PyPDF2.PdfFileWriter() #將檔案寫入方法設定給 pdfWriter 變數
-pdfOutput = open(r'/Users/martychen/Desktop/Python/comb.pdf' , 'wb')
+pdfFiles = [r'/Users/martychen/Documents/Python/out1.pdf', 
+            r'/Users/martychen/Documents/Python/out2.pdf' ,
+            r'/Users/martychen/Documents/Python/out3.pdf'] 
+#設定檔案來源為 pdfFile 變數 #設定要讀取的檔案
+pdfWriter = PyPDF2.PdfFileWriter() #將檔案寫入方法設定給 pdfWriter 變數 # pdfWriter = PdfFileWriter()
+pdfOutput = open(r'/Users/martychen/Documents/Python/comb.pdf' , 'wb')
 #以寫入模式開啟檔案comb.pdf，若不存在則建立，並設定給 pdfOutput 變數(輸出檔案)
 for fileName in pdfFiles: #以檔案名稱做為迴圈的執行參數fileName 
     pdfReader = PyPDF2.PdfFileReader(open(fileName,'rb')) #以讀取模式開啟檔案並設定給 pdfReader  變數
@@ -249,50 +265,54 @@ pdfOutput.close() #關閉寫入後的檔案
 
 
 
-'''
-* 讀取/寫入 TXT檔案
+
+
+
+＊＊＊ 讀取/寫入 txt 檔案 ＊＊＊
 
  -> math.ceil(數值) : 取得大於或等於該數值得最小整數
  -> math.floor(數值) : 取得小於或等於該數值得最大整數
-'''
+
 
 1. 讀取
-f = open(r'/Users/martychen/Desktop/Python/score.txt') #開啟檔案(唯讀)
+
+f = open(r'/Users/martychen/Documents/Python/score.txt') #開啟檔案(唯讀)
 a = f.read() #以 read()方法讀取 f 並設定給變數a
-L = a.split() #以 split() 方法分割資料成為一個串列 L，串列中的資料為整數字串
-for i in range(0,len(L)): #以串列資料做為迴圈執行的次數
-    L[i] = int(L[i]) #以索引帶入串列L中取得每一個元素並轉成整數後設定回給元素自己
+l = a.split() #以 split() 方法分割資料成為一個串列 l，串列中的資料為整數字串
+for i in range(0,len(l)): #以串列資料做為迴圈執行的次數
+    l[i] = int(l[i]) #以索引帶入串列l中取得每一個元素並轉成整數後設定回給元素自己
 # 分類統計個級別人數到列表 c
 c = [0,0,0,0,0,0]
-for x in L: #以串列L中的元素作為迴圈執行依據
-    if x >=90: #若串列L元素>=90，則將串列c的第一個元素值加1
+for x in l: #以串列l中的元素作為迴圈執行依據
+    if x >=90: #若串列l元素>=90，則將串列c的第一個元素值加1
         c[0] += 1
-    elif x >= 80: #若串列L元素>=80，則將串列c的第二個元素值加1
+    elif x >= 80: #若串列l元素>=80，則將串列c的第二個元素值加1
         c[1] += 1
-    elif x >= 70: #若串列L元素>=70，則將串列c的第二個元素值加1
+    elif x >= 70: #若串列l元素>=70，則將串列c的第二個元素值加1
         c[2] += 1
-    elif x >= 60: #若串列L元素>=60，則將串列c的第二個元素值加1
+    elif x >= 60: #若串列l元素>=60，則將串列c的第二個元素值加1
         c[3] += 1
-    elif x >= 40: #若串列L元素>=40，則將串列c的第二個元素值加1
+    elif x >= 40: #若串列l元素>=40，則將串列c的第二個元素值加1
         c[4] += 1
     else:         #其餘則將串列c的第六個元素值加1
         c[5] += 1
 # 輸出各級別統計結果
-print('90 分以上%d 人' % c[0] , end = ',')
-print('89-80 分%d 人' % c[1] , end = ',')
-print('79-70 分%d 人' % c[2] , end = ',')
-print('69-60 分%d 人' % c[3] , end = ',')
-print('59-40 分%d 人' % c[4] , end = ',')
-print('39 分以下%d 人' % c[5] , end = '\n')
+print('90 分以上 %d 人' % c[0])
+print('89-80 分 %d 人' % c[1])
+print('79-70 分 %d 人' % c[2])
+print('69-60 分 %d 人' % c[3])
+print('59-40 分 %d 人' % c[4])
+print('39 分以下 %d 人' % c[5])
 
 
 
 
 2. 寫入
+
 import math #載入數學模組
-with open(r'/Users/martychen/Desktop/Python/data5.txt' , 'r') as fin:
+with open(r'/Users/martychen/Documents/Python/data5.txt' , 'r') as fin:
 #以讀取模式開啟data5.txt設定給變數fin
-    with open(r'/Users/martychen/Desktop/Python/data5_w.txt' , 'w') as fout:
+    with open(r'/Users/martychen/Documents/Python/data5_w.txt' , 'w') as fout:
     #以寫入模式開啟data5.txt設定給變數fout
         for line in fin: #以讀取的檔案作為迴圈執行依據，逐一讀取data5.txt的資料
             data = math.ceil(20/(float(line)*0.001425))
@@ -303,16 +323,15 @@ with open(r'/Users/martychen/Desktop/Python/data5.txt' , 'r') as fin:
             
 
 
-
-
+ 
     
-'''
-* 讀取/寫入 CSV 檔案
-'''
+
+＊＊＊ 讀取/寫入 CSV 檔案 ＊＊＊
+
 
 1. ubike數據
 import csv #載入csv套件
-with open(r'/Users/martychen/Desktop/Python/ubike_1.csv' , 'r' , encoding = 'utf8') as csvfile:
+with open(r'/Users/martychen/Documents/Python/ubike_1.csv' , 'r' , encoding = 'utf8') as csvfile:
 #以讀取模式開啟CSV檔並設定給變數 csvfile
     
     #delimiter指定分割字元
@@ -322,7 +341,7 @@ with open(r'/Users/martychen/Desktop/Python/ubike_1.csv' , 'r' , encoding = 'utf
     for row in plots:
         print(row[0]+' '+row[1]+' '+row[3]+' '+row[5]+' '+row[12])
         #每一個欄位(row)以索引取出該欄位資料
-
+        
 
 
 2. 空氣品質數據
@@ -360,8 +379,10 @@ with open(r'/Users/martychen/Desktop/Python/stock.csv' , 'r') as fin:
             csvwriter.writerow(row) #以寫入物件利用writerow()方法將每列資料寫入
             
             
-'''
-* 讀取 JSON 檔案
+
+＊＊＊ 讀取 JSON 檔案 ＊＊＊
+
+
 
 #JSON：JavaScritp Object Notation
 →JavaScript 開放資料交換格式
@@ -401,7 +422,7 @@ with open(r'/Users/martychen/Desktop/Python/stock.csv' , 'r') as fin:
 
     -> separators(item符號(數組),dict符號(字典))
     
-'''
+
  
 1. json 格式練習       
 import json #載入JSON套件
@@ -434,8 +455,10 @@ with open(r'/Users/martychen/Desktop/Python/ubike_1.json' , encoding = 'utf8') a
     
 
 
-'''
-* XML 檔案
+
+
+
+＊＊＊ XML 檔案 ＊＊＊
 
     @XML：eXtensible Markup Language；可延伸標記語言
         →是一種電腦標記語言
@@ -447,7 +470,7 @@ with open(r'/Users/martychen/Desktop/Python/ubike_1.json' , encoding = 'utf8') a
         →<名稱>可稱為一個節點
         →<名稱 屬性=屬性值>：代表該名稱的設定功能
         →通常用於資料傳遞與消息發佈，如RSS....，一般業界會自訂客製化的XML格式。
-'''
+
 1. 
 import xml.etree.ElementTree as et #載入xml.etree.ElementTree套件
 tree = et.ElementTree(file = r'/Users/martychen/Desktop/Python/menu.xml')
